@@ -40,16 +40,25 @@
   <div class="alert alert-error">This contact doesnt exist !</div>
 </script>
 
+<script type="text/template" id="loading-view">
+  <h1><%- title %></h1>
+  <p><%- message %></p>
+  <div id="spinner"></div>
+</script>
+
 <script src="../libs/jquery-2.1.3/jquery-2.1.3.js"></script>
 <script src="../libs/underscore-1.7.0/underscore.js"></script>
 <script src="../libs/backbone-1.1.2/backbone.js"></script>
 <script src="../libs/backbone.localstorage-1.1.16/backbone.localstorage.js"></script>
 <script src="../libs/backbone.marionette-2.3.2/backbone.marionette.js"></script>
 <script src="./assets/js/apps/config/marionette/templateCache.js"></script>
+<script src="../libs/spin/spin.js"></script>
+<script src="../libs/spin/jquery.spin.js"></script>
 
 <script src="./assets/js/app.js"></script>
 <script src="./assets/js/apps/config/storage/localstorage.js"></script>
 <script src="./assets/js/entities/contact.js"></script>
+<script src="./assets/js/common/views.js"></script>
 
 <script src="./assets/js/apps/contacts/contacts_app.js"></script>
 <script src="./assets/js/apps/contacts/list/list_templates.js"></script>

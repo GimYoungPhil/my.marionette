@@ -3,24 +3,30 @@ ContactManager.module("ContactsApp.Show", function(Show, ContactManager, Backbon
   Show.Controller = {
     showContact: function(id) {
 
-      var contacts = ContactManager.request('contact:entities');
-      var model = contacts.get(id);
-      var contactView;
+      var loadingView = new ContactManager.Common.Views.Loading({
+        title: "Artificial Loading Delay",
+        message: "Data loading is delayed to demonstrate using a loading view. ...."
+      });
+      ContactManager.mainRegion.show(loadingView);
 
-      if (model !== undefined) {
+      var fetchingContact = ContactManager.request('contact:entity', id);
 
-        contactView = new Show.Contact({
-          model: model
-        });
+      $.when(fetchingContact).done(function(contact) {
+        var contactView;
 
-      } else {
+        if (contact !== undefined) {
 
-        contactView = new Show.MissingContact();
+          contactView = new Show.Contact({
+            model: contact
+          });
 
-      }
+        } else {
+          contactView = new Show.MissingContact();
+        }
 
+        ContactManager.mainRegion.show(contactView);
+      });
 
-      ContactManager.mainRegion.show(contactView);
     }
   };
 
