@@ -1,5 +1,18 @@
 ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbone, Marionette, $, _) {
 
+  List.Layout = Marionette.LayoutView.extend({
+    template: "#contact-list-layout",
+
+    regions: {
+      panelRegion: "#panel-region",
+      contactsRegion: "#contacts-region"
+    }
+  });
+
+  List.Panel = Marionette.ItemView.extend({
+    template: "#contact-list-panel"
+  });
+
   List.Contact = Marionette.ItemView.extend({
     tagName: "tr",
     template: 'ContactManager.ContactsApp.List.Templates.contactView',
@@ -7,6 +20,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
     events: {
       'click': 'highlightName',
       'click a.js-show': 'showClicked',
+      'click td a.js-edit': 'editClicked',
       'click button.js-delete': 'deleteClicked'
     },
 
@@ -22,6 +36,12 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
       this.trigger('contact:show', this.model);
     },
 
+    editClicked: function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      this.trigger("contact:edit", this.model);
+    },
+
     deleteClicked: function(e) {
       e.stopPropagation();
       // this.model.collection.remove(this.model);
@@ -33,7 +53,17 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
       this.$el.fadeOut(function() {
         Marionette.ItemView.prototype.remove.call(self);
       });
+    },
+
+    flash: function(cssClass) {
+      var $view = this.$el;
+      $view.hide().toggleClass(cssClass).fadeIn(800, function() {
+        setTimeout(function() {
+          $view.toggleClass(cssClass)
+        }, 500);
+      });
     }
+
   });
 
   List.Contacts = Marionette.CompositeView.extend({

@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <title>Marionette Contact Manager</title>
   <link rel="stylesheet" href="../libs/bootstrap-3.3.1/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="../libs/jquery-ui-1.11.2/jquery-ui.css">
+  <!-- <link rel="stylesheet" href="../libs/jquery-ui-1.11.2/jquery-1.10.3.custom.css"> -->
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -17,6 +19,16 @@
   <div id="main-region" class="container">
     <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.</p>
   </div>
+  <div id="dialog-region"></div>
+
+<script type="text/template" id="contact-list-layout">
+ <div id="panel-region"></div>
+  <div id="contacts-region"></div>
+</script>
+
+<script type="text/template" id="contact-list-panel">
+  <button class="btn btn-primary js-new">New contact</button>
+</script>
 
 <script type="text/template" id="contact-list">
 <thead>
@@ -52,7 +64,6 @@
 </script>
 
 <script type="text/template" id="contact-form">
-  <h1>Edit <%- firstName %> <%- lastName %></h1>
   <form>
     <div class="form-group">
       <label for="contact-firstName" class="control-label">First name:</label>
@@ -70,7 +81,27 @@
   </form>
 </script>
 
+<script type="text/template" id="contact-list-item">
+  <td><%- firstName %></td>
+  <td><%- lastName %></td>
+  <td>
+    <a href="#contacts/<%- id %>" class="btn btn-small js-show">
+      <i class="icon-eye-open"></i>
+      Show
+    </a>
+    <a href="#contacts/<%- id %>/edit" class="btn btn-small js-edit">
+<i class="icon-pencil"></i>
+Edit
+</a>
+<button class="btn btn-small js-delete">
+<i class="icon-remove"></i>
+Delete
+    </button>
+  </td>
+</script>
+
 <script src="../libs/jquery-2.1.3/jquery-2.1.3.js"></script>
+<script src="../libs/jquery-ui-1.11.2/jquery-ui.js"></script>
 <script src="../libs/underscore-1.7.0/underscore.js"></script>
 <script src="../libs/backbone-1.1.2/backbone.js"></script>
 <script src="../libs/backbone.syphon-0.4.1/backbone.syphon.js"></script>
